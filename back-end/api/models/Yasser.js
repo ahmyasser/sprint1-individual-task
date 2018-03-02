@@ -16,19 +16,24 @@ var productSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    updatedAt: Date,
+    updatedAt: {
+    type: Date,
+    default: Date.now
+},
     component:{
         type:String,
+
         quired: true,
         trim: true,
         lowercase: true
     },
     seller:{
         type: String,
+
         required: true,
         trim: true,
         lowercase: true
     },
 });
 
-mongoose.model('Anas', productSchema);
+mongoose.model('Yasser', productSchema);

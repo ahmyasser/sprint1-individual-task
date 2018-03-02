@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     moment = require('moment'),
     Validations = require('../utils/Validations'),
-    Anas = mongoose.model('Anas');
+    Yasser = mongoose.model('Yasser');
 
 module.exports.getProduct = function(req, res, next) {
     if (!Validations.isObjectId(req.params.productId)) {
@@ -11,11 +11,11 @@ module.exports.getProduct = function(req, res, next) {
             data: null
         });
     }
-    Anas.findById(req.params.productId).exec(function(err, Anas) {
+    Yasser.findById(req.params.productId).exec(function(err, Yasser) {
         if (err) {
             return next(err);
         }
-        if (!Anas) {
+        if (!Yasser) {
             return res
                 .status(404)
                 .json({ err: null, msg: 'Product not found.', data: null });
@@ -23,20 +23,20 @@ module.exports.getProduct = function(req, res, next) {
         res.status(200).json({
             err: null,
             msg: 'Product retrieved successfully.',
-            data: Anas
+            data: Yasser
         });
     });
 };
 
 module.exports.getProducts = function(req, res, next) {
-    Anas.find({}).exec(function(err, Anas) {
+    Yasser.find({}).exec(function(err, Yasser) {
         if (err) {
             return next(err);
         }
         res.status(200).json({
             err: null,
             msg: 'Products retrieved successfully.',
-            data: Anas
+            data: Yasser
         });
     });
 };
@@ -49,11 +49,11 @@ module.exports.getProductsBelowPrice = function(req, res, next) {
             data: null
         });
     }
-    Anas.find({
+    Yasser.find({
         price: {
             $lt: req.params.price
         }
-    }).exec(function(err, Anas) {
+    }).exec(function(err, Yasser) {
         if (err) {
             return next(err);
         }
@@ -63,7 +63,7 @@ module.exports.getProductsBelowPrice = function(req, res, next) {
             'Products priced below ' +
             req.params.price +
             ' retrieved successfully.',
-            data: Anas
+            data: Yasser
         });
     });
 };
@@ -85,14 +85,14 @@ module.exports.createProduct = function(req, res, next) {
     delete req.body.createdAt;
     delete req.body.updatedAt;
 
-    Anas.create(req.body, function(err, Anas) {
+    Yasser.create(req.body, function(err, Yasser) {
         if (err) {
             return next(err);
         }
         res.status(201).json({
             err: null,
             msg: 'Product was created successfully.',
-            data: Anas
+            data: Yasser
         });
     });
 };
@@ -121,7 +121,7 @@ module.exports.updateProduct = function(req, res, next) {
     delete req.body.createdAt;
     req.body.updatedAt = moment().toDate();
 
-    Anas.findByIdAndUpdate(
+    Yasser.findByIdAndUpdate(
         req.params.productId,
         {
             $set: req.body
@@ -152,7 +152,7 @@ module.exports.deleteProduct = function(req, res, next) {
             data: null
         });
     }
-    Anas.findByIdAndRemove(req.params.productId).exec(function(
+    Yasser.findByIdAndRemove(req.params.productId).exec(function(
         err,
         deletedProduct
     ) {
